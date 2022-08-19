@@ -4,6 +4,8 @@ import com.grupo2.gestaoProjeto.BackFormulario.dto.AccreditationDto;
 import com.grupo2.gestaoProjeto.BackFormulario.model.Accreditation;
 import com.grupo2.gestaoProjeto.BackFormulario.repository.AccreditationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -23,6 +25,10 @@ public class AccreditationService {
 
     public List<Accreditation> findAll(){
         return  accreditationRepository.findAll();
+    }
+
+    public Page<Accreditation> findAllPage(Pageable pageable){
+        return accreditationRepository.findAll(pageable);
     }
 
     public Accreditation findById(UUID id){

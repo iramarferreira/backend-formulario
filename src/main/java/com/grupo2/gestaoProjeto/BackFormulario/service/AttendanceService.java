@@ -3,6 +3,8 @@ package com.grupo2.gestaoProjeto.BackFormulario.service;
 import com.grupo2.gestaoProjeto.BackFormulario.model.Attendance;
 import com.grupo2.gestaoProjeto.BackFormulario.repository.AttendanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -23,6 +25,11 @@ public class AttendanceService {
     public List<Attendance> findAll(){
         return attendanceRepository.findAll();
     }
+
+    public Page<Attendance> findAllPage(Pageable pageable){
+        return attendanceRepository.findAll(pageable);
+    }
+
 
     public Attendance findById(UUID id){
         if(attendanceRepository.findById(id).isPresent()) {
