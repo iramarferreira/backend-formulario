@@ -1,10 +1,13 @@
 package com.grupo2.gestaoProjeto.BackFormulario.controller;
 
 import com.grupo2.gestaoProjeto.BackFormulario.dto.NoticeDto;
+import com.grupo2.gestaoProjeto.BackFormulario.model.Newsletter;
 import com.grupo2.gestaoProjeto.BackFormulario.model.Notice;
 import com.grupo2.gestaoProjeto.BackFormulario.service.NoticeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +39,10 @@ public class NoticeController {
                 .body(noticeService.findAll());
     }
 
+    @GetMapping(path = "/notices/pageable")
+    public ResponseEntity<Page<Notice>> findAllPage(Pageable pageable){
+        return ResponseEntity.status(HttpStatus.OK).body(noticeService.findAllPage(pageable));
+    }
 
     @GetMapping(path = "/notice/{id}")
     public ResponseEntity<Notice> findById(@PathVariable UUID id){

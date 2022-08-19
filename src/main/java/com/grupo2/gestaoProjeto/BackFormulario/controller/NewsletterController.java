@@ -5,6 +5,8 @@ import com.grupo2.gestaoProjeto.BackFormulario.model.Newsletter;
 import com.grupo2.gestaoProjeto.BackFormulario.service.NewsletterService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +35,11 @@ public class NewsletterController {
     public ResponseEntity<List<Newsletter>> findAll(){
         return ResponseEntity.status(HttpStatus.OK)
                 .body(newsletterService.findAll());
+    }
+
+    @GetMapping(path = "/newsletters/pageable")
+    public ResponseEntity<Page<Newsletter>> findAllPage(Pageable pageable){
+        return ResponseEntity.status(HttpStatus.OK).body(newsletterService.findAllPage(pageable));
     }
 
     @GetMapping(path = "/newsletter/{id}")

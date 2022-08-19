@@ -5,6 +5,8 @@ import com.grupo2.gestaoProjeto.BackFormulario.model.Accreditation;
 import com.grupo2.gestaoProjeto.BackFormulario.service.AccreditationService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +36,11 @@ public class AccreditationController {
     public ResponseEntity<List<Accreditation>> findAll(){
         return ResponseEntity.status(HttpStatus.OK)
                 .body(accreditationService.findAll());
+    }
+
+    @GetMapping(path = "/accreditations/pageable")
+    public ResponseEntity<Page<Accreditation>> findAllPage(Pageable pageable){
+        return ResponseEntity.status(HttpStatus.OK).body(accreditationService.findAllPage(pageable));
     }
 
     @GetMapping(path = "/accreditation/{id}")
