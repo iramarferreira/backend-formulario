@@ -23,7 +23,7 @@ public class AttendanceController {
     @PostMapping(path = "/webhook/attendance")
     public ResponseEntity<Attendance> save(@RequestBody @Valid AttendanceDto attendanceDto){
         Attendance attendance = Attendance.builder().build();
-        BeanUtils.copyProperties(attendanceDto, attendanceDto);
+        BeanUtils.copyProperties(attendanceDto, attendance);
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(attendanceService.save(attendance));

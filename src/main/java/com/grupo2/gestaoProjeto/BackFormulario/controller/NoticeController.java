@@ -24,8 +24,9 @@ public class NoticeController {
 
         Notice notice = Notice.builder().build();
         BeanUtils.copyProperties(noticeDto, notice);
+
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(notice);
+                .body(noticeService.save(notice));
     }
 
     @GetMapping(path = "/notices")
