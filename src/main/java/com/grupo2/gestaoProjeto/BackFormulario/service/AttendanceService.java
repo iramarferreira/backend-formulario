@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class AttendanceService {
@@ -21,6 +22,14 @@ public class AttendanceService {
 
     public List<Attendance> findAll(){
         return attendanceRepository.findAll();
+    }
+
+    public Attendance findById(UUID id){
+        if(attendanceRepository.findById(id).isPresent()) {
+            return attendanceRepository.findById(id).get();
+        }else{
+            return null;
+        }
     }
 
 

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class NewsletterService {
@@ -21,5 +22,13 @@ public class NewsletterService {
 
     public List<Newsletter> findAll(){
         return newsletterRepository.findAll();
+    }
+
+    public Newsletter findById(UUID id){
+        if(newsletterRepository.findById(id).isPresent()) {
+            return newsletterRepository.findById(id).get();
+        }else{
+            return null;
+        }
     }
 }
