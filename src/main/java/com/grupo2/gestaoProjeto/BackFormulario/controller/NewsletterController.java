@@ -3,6 +3,7 @@ package com.grupo2.gestaoProjeto.BackFormulario.controller;
 import com.grupo2.gestaoProjeto.BackFormulario.dto.NewsletterDto;
 import com.grupo2.gestaoProjeto.BackFormulario.model.Newsletter;
 import com.grupo2.gestaoProjeto.BackFormulario.service.NewsletterService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,6 +23,7 @@ public class NewsletterController {
     @Autowired
     NewsletterService newsletterService;
 
+    @Operation(summary = "Rota para receber o webhook de salvar o formulário de Newsletter")
     @PostMapping(path = "/webhook/newsletter")
     public ResponseEntity<Newsletter> save(@RequestBody @Valid NewsletterDto newsletterDto){
         Newsletter newsletter = Newsletter.builder().build();
@@ -31,17 +33,20 @@ public class NewsletterController {
                 .body(newsletterService.save(newsletter));
     }
 
+    @Operation(summary = "Retorna todos os cadadastros de Newsletter")
     @GetMapping(path = "/newsletters")
     public ResponseEntity<List<Newsletter>> findAll(){
         return ResponseEntity.status(HttpStatus.OK)
                 .body(newsletterService.findAll());
     }
 
+    @Operation(summary = "Retorna todos os cadadastros de Newsletters com paginação")
     @GetMapping(path = "/newsletters/pageable")
     public ResponseEntity<Page<Newsletter>> findAllPage(Pageable pageable){
         return ResponseEntity.status(HttpStatus.OK).body(newsletterService.findAllPage(pageable));
     }
 
+    @Operation(summary = "Retorna um cadadastro de Newsletter pelo seu ID")
     @GetMapping(path = "/newsletter/{id}")
     public ResponseEntity<Newsletter> findById(@PathVariable UUID id){
         Newsletter newsletter = newsletterService.findById(id);

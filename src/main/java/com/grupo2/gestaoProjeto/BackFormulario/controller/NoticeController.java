@@ -4,6 +4,7 @@ import com.grupo2.gestaoProjeto.BackFormulario.dto.NoticeDto;
 import com.grupo2.gestaoProjeto.BackFormulario.model.Newsletter;
 import com.grupo2.gestaoProjeto.BackFormulario.model.Notice;
 import com.grupo2.gestaoProjeto.BackFormulario.service.NoticeService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,6 +24,7 @@ public class NoticeController {
     @Autowired
     NoticeService noticeService;
 
+    @Operation(summary = "Rota para receber o webhook de salvar o formulário de Aviso de Pauta")
     @PostMapping(path = "/webhook/notice")
     public ResponseEntity<Notice> save(@RequestBody @Valid NoticeDto noticeDto){
 
@@ -33,17 +35,21 @@ public class NoticeController {
                 .body(noticeService.save(notice));
     }
 
+
+    @Operation(summary = "Retorna todos os cadadastros de Aviso de Pauta")
     @GetMapping(path = "/notices")
     public ResponseEntity<List<Notice>> findAll(){
         return ResponseEntity.status(HttpStatus.OK)
                 .body(noticeService.findAll());
     }
 
+    @Operation(summary = "Retorna todos os cadadastros de Aviso de Pauta com paginação")
     @GetMapping(path = "/notices/pageable")
     public ResponseEntity<Page<Notice>> findAllPage(Pageable pageable){
         return ResponseEntity.status(HttpStatus.OK).body(noticeService.findAllPage(pageable));
     }
 
+    @Operation(summary = "Retorna um cadadastro de Aviso de Pauta pelo seu ID")
     @GetMapping(path = "/notice/{id}")
     public ResponseEntity<Notice> findById(@PathVariable UUID id){
         Notice notice = noticeService.findById(id);
