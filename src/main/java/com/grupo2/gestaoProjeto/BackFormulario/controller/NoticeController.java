@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/api")
@@ -33,6 +34,17 @@ public class NoticeController {
     public ResponseEntity<List<Notice>> findAll(){
         return ResponseEntity.status(HttpStatus.OK)
                 .body(noticeService.findAll());
+    }
+
+
+    @GetMapping(path = "/notice/{id}")
+    public ResponseEntity<Notice> findById(@PathVariable UUID id){
+        Notice notice = noticeService.findById(id);
+        if(notice != null){
+            return ResponseEntity.status(HttpStatus.OK).body(notice);
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 
 

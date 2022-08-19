@@ -10,8 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.xml.ws.Response;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/api")
@@ -33,5 +33,15 @@ public class AttendanceController {
     public ResponseEntity<List<Attendance>> findAll(){
         return ResponseEntity.status(HttpStatus.OK)
                 .body(attendanceService.findAll());
+    }
+
+    @GetMapping(path = "/attendance/{id}")
+    public ResponseEntity<Attendance> findById(@PathVariable UUID id){
+        Attendance attendance = attendanceService.findById(id);
+        if(attendance != null){
+            return ResponseEntity.status(HttpStatus.OK).body(attendance);
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 }

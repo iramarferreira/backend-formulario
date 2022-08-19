@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/api")
@@ -33,6 +34,16 @@ public class AccreditationController {
     public ResponseEntity<List<Accreditation>> findAll(){
         return ResponseEntity.status(HttpStatus.OK)
                 .body(accreditationService.findAll());
+    }
+
+    @GetMapping(path = "/accreditation/{id}")
+    public ResponseEntity<Accreditation> findById(@PathVariable UUID id){
+        Accreditation accreditation = accreditationService.findById(id);
+        if(accreditation != null){
+            return ResponseEntity.status(HttpStatus.OK).body(accreditation);
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 
 }
