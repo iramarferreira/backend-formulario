@@ -17,6 +17,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
+@CrossOrigin(originPatterns = "${spring.application.originPatterns}")
 @RestController
 @RequestMapping(path = "/api")
 public class NoticeController {
